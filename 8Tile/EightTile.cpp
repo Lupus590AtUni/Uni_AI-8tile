@@ -7,14 +7,33 @@ using std::endl;
 EightTile::EightTile()
 {
 	myMove = NONE;  //initialize member attributes
-	x = 0;  //initial blank position   - make  sure this agrees with solved puzzle!
-	y = 0;
-	tiles[0][0] = 0; tiles[1][0] = 1; tiles[2][0] = 2; //set up puzzle tiles
+	
+	/*tiles[0][0] = 0; tiles[1][0] = 1; tiles[2][0] = 2; //set up puzzle tiles
 	tiles[0][1] = 3; tiles[1][1] = 4; tiles[2][1] = 5;
-	tiles[0][2] = 6; tiles[1][2] = 7; tiles[2][2] = 8;
+	tiles[0][2] = 6; tiles[1][2] = 7; tiles[2][2] = 8;*/
+
+	tiles[0][0] = 1; tiles[1][0] = 4; tiles[2][0] = 2; //assigned problem
+	tiles[0][1] = 3; tiles[1][1] = 5; tiles[2][1] = 8;
+	tiles[0][2] = 6; tiles[1][2] = 0; tiles[2][2] = 7;
+
 	solution[0][0] = 0; solution[1][0] = 1; solution[2][0] = 2; //set up solved puzzle tile positions
 	solution[0][1] = 3; solution[1][1] = 4; solution[2][1] = 5;
 	solution[0][2] = 6; solution[1][2] = 7; solution[2][2] = 8;
+
+	//find blank position
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (tiles[i][j] == 0)
+			{
+				x = i;
+				y = j;
+				break;
+			}
+		}
+	}
+
 	display();
 }
 

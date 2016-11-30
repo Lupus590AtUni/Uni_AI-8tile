@@ -1,8 +1,9 @@
-#include <iostream>
+//#include <iostream>
 #include "EightTile.h"
 #include "HillClimb.h"
+#include <conio.h>
 
-using std::cin;
+//using std::cin;
 
 
 EightTile myPuzzle;//create class and init.
@@ -16,7 +17,8 @@ int main(void)
 	while (true) //go forever
 	{
 
-		cin >> d;
+		//cin >> d;
+		d = _getch(); //http://www.cplusplus.com/forum/general/29137/#msg158172
 		if (d == 'a') myPuzzle.setMove(LEFT);
 		if (d == 'd') myPuzzle.setMove(RIGHT);
 		if (d == 'w') myPuzzle.setMove(UP);
