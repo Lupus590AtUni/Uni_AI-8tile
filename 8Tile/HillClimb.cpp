@@ -38,6 +38,7 @@ int HillClimb::calcMissplaceCount(int** compare)//Used for tracking our progress
 
 void HillClimb::solve()
 {
+	//TODO: Find out why it doesn't solve
 	int** tiles = NULL;
 	while (true)
 	{
