@@ -56,14 +56,14 @@ void HillClimb::solve()
 		int y = myPuzzle.getY();
 		if (myPuzzle.okDown())
 		{
-			swap(tiles[x][y], tiles[x][y+1]);
+			swap(tiles[x][y], tiles[x][y+1]);//swap it
 			int result = calcMissplaceCount(tiles);
-			if (result < currentMissplacedCount)
+			if (result < currentMissplacedCount)//see if it's an improvment
 			{
 				missplaceCountIfMove = result;
 				bestMove = DOWN;
 			}
-			swap(tiles[x][y], tiles[x][y + 1]);
+			swap(tiles[x][y], tiles[x][y + 1]);//swap back so that eighttile can do it
 		}
 		if (myPuzzle.okUp())
 		{
@@ -105,6 +105,7 @@ void HillClimb::solve()
 			break;
 		}
 		myPuzzle.display();
+		cout << "AutoSolve Active\n";
 		if (tiles != NULL)
 		{
 			for (int i = 0; i < 3; i++)

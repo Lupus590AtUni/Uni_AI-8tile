@@ -1,6 +1,8 @@
 #include "EightTile.h"
 #include <iostream>
 
+#include <stdlib.h>
+
 using std::cout;
 using std::endl;
 
@@ -40,6 +42,7 @@ EightTile::EightTile()
 void EightTile::display(void)
 //draw puzzle as it is now
 {
+	system("cls"); //https://support.microsoft.com/en-us/kb/99261
 	cout << tiles[0][0] << " " << tiles[1][0] << " " << tiles[2][0] << endl;
 	cout << tiles[0][1] << " " << tiles[1][1] << " " << tiles[2][1] << endl;
 	cout << tiles[0][2] << " " << tiles[1][2] << " " << tiles[2][2] << endl;
@@ -55,14 +58,14 @@ void EightTile::swap(void)
 //can't move beyond edges of puzzle
 {
 	int temp;
-	if (okLeft() & (myMove == LEFT)) {
+	if ((myMove == LEFT) && okLeft()) {
 		temp = tiles[x - 1][y];
 		tiles[x - 1][y] = tiles[x][y];
 		tiles[x][y] = temp;
 		x = x - 1;
 
 	}
-	if (okRight() & (myMove == RIGHT)) {
+	if ((myMove == RIGHT) && okRight()) {
 		temp = tiles[x + 1][y];
 		tiles[x + 1][y] = tiles[x][y];
 		tiles[x][y] = temp;
@@ -70,14 +73,14 @@ void EightTile::swap(void)
 
 	}
 
-	if (okUp() & (myMove == UP)) {
+	if ((myMove == UP) && okUp()) {
 		temp = tiles[x][y - 1];
 		tiles[x][y - 1] = tiles[x][y];
 		tiles[x][y] = temp;
 		y = y - 1;
 
 	}
-	if (okDown() & (myMove == DOWN)) {
+	if ((myMove == DOWN) && okDown()) {
 		temp = tiles[x][y + 1];
 		tiles[x][y + 1] = tiles[x][y];
 		tiles[x][y] = temp;
