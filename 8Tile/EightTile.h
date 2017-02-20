@@ -1,9 +1,5 @@
 #pragma once
 
-//LOW: find and fix memory leak
-//#include <memory>
-//using std::unique_ptr;
-
 
 enum move { NONE, UP, DOWN, LEFT, RIGHT };
 class EightTile

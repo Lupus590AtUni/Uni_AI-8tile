@@ -45,7 +45,6 @@ int HillClimb::calcMissplaceCount(int** compare)//Used for tracking our progress
 
 void HillClimb::solve()
 {
-	//TODO: Find out why it doesn't solve - it doesn't move the pieces
 	while (true)
 	{
 		int currentMissplacedCount = calcMissplaceCount();
