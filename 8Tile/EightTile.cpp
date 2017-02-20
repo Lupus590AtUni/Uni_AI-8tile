@@ -10,13 +10,13 @@ EightTile::EightTile()
 {
 	myMove = NONE;  //initialize member attributes
 	
-	//*
+	/*
 	tiles[0][0] = 0; tiles[1][0] = 1; tiles[2][0] = 2; //set up puzzle tiles
 	tiles[0][1] = 3; tiles[1][1] = 4; tiles[2][1] = 5;
 	tiles[0][2] = 6; tiles[1][2] = 7; tiles[2][2] = 8;
 	//*/
 
-	/*
+	//*
 	tiles[0][0] = 1; tiles[1][0] = 4; tiles[2][0] = 2; //assigned problem
 	tiles[0][1] = 3; tiles[1][1] = 5; tiles[2][1] = 8;
 	tiles[0][2] = 6; tiles[1][2] = 0; tiles[2][2] = 7;

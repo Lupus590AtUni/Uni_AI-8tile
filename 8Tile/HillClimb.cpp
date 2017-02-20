@@ -38,12 +38,13 @@ int HillClimb::calcMissplaceCount(int** compare)//Used for tracking our progress
 
 void HillClimb::solve()
 {
-	//TODO: Find out why it doesn't solve
+	//TODO: Find out why it doesn't solve - it doesn't move the pieces
 	int** tiles = NULL;
 	while (true)
 	{
 		tiles = myPuzzle.getTilesCopy();
 		int currentMissplacedCount = calcMissplaceCount();
+		cout << "HillClimb::solve - currentMissplacedCount: " << currentMissplacedCount;
 		if (currentMissplacedCount == 0)
 		{
 			cout << "Solved\n";
