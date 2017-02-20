@@ -32,6 +32,13 @@ int HillClimb::calcMissplaceCount(int** compare)//Used for tracking our progress
 			}
 		}
 	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		delete compare[i];
+	}
+	delete compare;
+
 	return missplacedCount;
 }
 
@@ -39,10 +46,8 @@ int HillClimb::calcMissplaceCount(int** compare)//Used for tracking our progress
 void HillClimb::solve()
 {
 	//TODO: Find out why it doesn't solve - it doesn't move the pieces
-	int** tiles = NULL;
 	while (true)
 	{
-		tiles = myPuzzle.getTilesCopy();
 		int currentMissplacedCount = calcMissplaceCount();
 		cout << "HillClimb::solve - currentMissplacedCount: " << currentMissplacedCount;
 		if (currentMissplacedCount == 0)
@@ -58,47 +63,55 @@ void HillClimb::solve()
 		int y = myPuzzle.getY();
 		if (myPuzzle.okDown())
 		{
-			swap(tiles[x][y], tiles[x][y+1]);//swap it
-			int result = calcMissplaceCount(tiles);
+			myPuzzle.setMove(DOWN);
+			myPuzzle.swap();
+			int result = calcMissplaceCount(myPuzzle.getTilesCopy());
 			if (result < currentMissplacedCount)//see if it's an improvment
 			{
 				missplaceCountIfMove = result;
 				bestMove = DOWN;
 			}
-			swap(tiles[x][y], tiles[x][y + 1]);//swap back so that eighttile can do it
+			myPuzzle.setMove(UP);
+			myPuzzle.swap();//swap back so we can find best move
 		}
 		if (myPuzzle.okUp())
 		{
-			swap(tiles[x][y], tiles[x][y - 1]);
-			int result = calcMissplaceCount(tiles);
+			myPuzzle.setMove(UP);
+			myPuzzle.swap();
+			int result = calcMissplaceCount(myPuzzle.getTilesCopy());
 			if (result < currentMissplacedCount)
 			{
 				missplaceCountIfMove = result;
 				bestMove = UP;
 			}
-			swap(tiles[x][y], tiles[x][y - 1]);
+			myPuzzle.setMove(DOWN);
+			myPuzzle.swap();
 		}
 		if (myPuzzle.okLeft())
 		{
-			swap(tiles[x][y], tiles[x - 1][y]);
-			int result = calcMissplaceCount(tiles);
+			myPuzzle.setMove(LEFT);
+			myPuzzle.swap();
+			int result = calcMissplaceCount(myPuzzle.getTilesCopy());
 			if (result < currentMissplacedCount)
 			{
 				missplaceCountIfMove = result;
 				bestMove = LEFT;
 			}
-			swap(tiles[x][y], tiles[x - 1][y]);
+			myPuzzle.setMove(RIGHT);
+			myPuzzle.swap();
 		}
 		if (myPuzzle.okRight())
 		{
-			swap(tiles[x][y], tiles[x + 1][y]);
-			int result = calcMissplaceCount(tiles);
+			myPuzzle.setMove(RIGHT);
+			myPuzzle.swap();
+			int result = calcMissplaceCount(myPuzzle.getTilesCopy());
 			if (result < currentMissplacedCount)
 			{
 				missplaceCountIfMove = result;
 				bestMove = RIGHT;
 			}
-			swap(tiles[x][y], tiles[x + 1][y]);
+			myPuzzle.setMove(LEFT);
+			myPuzzle.swap();
 		}
 		if (missplaceCountIfMove > currentMissplacedCount)
 		{
@@ -106,25 +119,14 @@ void HillClimb::solve()
 			cout << "Stuck\n";
 			break;
 		}
+
+		myPuzzle.setMove(bestMove);
+		myPuzzle.swap();
+
 		myPuzzle.display();
 		cout << "AutoSolve Active\n";
-		if (tiles != NULL)
-		{
-			for (int i = 0; i < 3; i++)
-			{
-				if (tiles[i] != NULL) delete tiles[i];
-			}
-			delete tiles;
-		}
+		
 	}
 
-	//clean memory
-	if (tiles != NULL)
-	{
-		for (int i = 0; i < 3; i++)
-		{
-			if (tiles[i] != NULL) delete tiles[i];
-		}
-		delete tiles;
-	}
+	
 }
