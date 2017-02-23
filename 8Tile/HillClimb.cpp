@@ -3,6 +3,7 @@
 
 #include <math.h>
 #include <iostream>
+#include <conio.h>
 
 using std::cout;
 
@@ -45,8 +46,14 @@ void HillClimb::solve()
 {
 	while (true)
 	{
+		cout << "press any key to interrupt\n";
+		if (_kbhit())
+		{
+			_getch(); //discard the key which was used to interrupt
+			break;
+		}
 		int currentMissplacedCount = calcMissplaceCount();
-		cout << "HillClimb::solve - currentMissplacedCount: " << currentMissplacedCount;
+		//cout << "HillClimb::solve - currentMissplacedCount: " << currentMissplacedCount;
 		if (currentMissplacedCount == 0)
 		{
 			cout << "Solved\n";
@@ -110,11 +117,11 @@ void HillClimb::solve()
 			myPuzzle.setMove(LEFT);
 			myPuzzle.swap();
 		}
-		if (missplaceCountIfMove > currentMissplacedCount)
+		if (missplaceCountIfMove >= currentMissplacedCount)
 		{
 			//stuck, maybe try a random move?
 			cout << "Stuck\n";
-			break;
+			//break;
 		}
 
 		myPuzzle.setMove(bestMove);
