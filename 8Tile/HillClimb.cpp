@@ -4,6 +4,7 @@
 #include <math.h>
 #include <iostream>
 #include <conio.h>
+#include "NA_MathsLib.h"
 
 using std::cout;
 
@@ -121,6 +122,36 @@ void HillClimb::solve()
 		{
 			//stuck, maybe try a random move?
 			cout << "Stuck\n";
+
+			extern NA_MathsLib maths;
+
+			bool moveOK = false;
+			move randomMove = (move)(maths.dice(3) + 1); // 3 as there are three options we want, +1 as the first is the one we don't want
+			switch (randomMove)
+			{
+			case move::DOWN:
+				moveOK = myPuzzle.okDown();
+				break;
+			case move::LEFT:
+				moveOK = myPuzzle.okLeft();
+				break;
+			case move::UP:
+				moveOK = myPuzzle.okUp();
+				break;
+			case move::RIGHT:
+				moveOK = myPuzzle.okRight();
+				break;
+
+			default:
+				cout << "HillClimb::solve Random move part when stuck - default used in switch"; // most of my defaults wait for imposibilities
+				break;
+			}
+			if (moveOK)
+			{
+				myPuzzle.setMove(randomMove);
+				myPuzzle.swap();
+			}
+
 			//break;
 		}
 
