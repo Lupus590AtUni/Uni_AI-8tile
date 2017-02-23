@@ -20,7 +20,7 @@ int main(void)
 	AStar aStar;
 
 	// print controls
-	cout << "controls\nwasd = move tiles\nh = activate hillclimbing, press any key to deactivate or wait for it to find a solution\nt = shuffle the puzzle\n";
+	cout << "controls\nwasd = move tiles\nh = activate hillclimbing, press any key to deactivate, it will also exit once it finds a solution\nj = activate A*, press any key to deactivate, it will also exit once it finds a solution\nt = shuffle the puzzle\n";
 
 	while (true) //go forever
 	{
@@ -31,6 +31,7 @@ int main(void)
 		if (d == 'w') myPuzzle.setMove(UP);
 		if (d == 's') myPuzzle.setMove(DOWN);
 		if (d == 'h') hill.solve();
+		if (d == 'j') aStar.solve();
 		if (d == 't') myPuzzle.shuffle();
 		myPuzzle.swap(); //move blank
 		myPuzzle.display(); //draw puzzle

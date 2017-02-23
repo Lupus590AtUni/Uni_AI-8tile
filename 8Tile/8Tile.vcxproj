@@ -142,12 +142,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AStar.cpp" />
     <ClCompile Include="EightTile.cpp" />
     <ClCompile Include="HillClimb.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="NA_MathsLib.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AStar.h" />
     <ClInclude Include="EightTile.h" />
     <ClInclude Include="HillClimb.h" />
     <ClInclude Include="NA_MathsLib.h" />
