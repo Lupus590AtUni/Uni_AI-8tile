@@ -2,8 +2,6 @@
 #include "EightTile.h"
 
 #include <math.h>
-#include <algorithm>    // std::swap
-using std::swap;
 #include <iostream>
 
 using std::cout;
