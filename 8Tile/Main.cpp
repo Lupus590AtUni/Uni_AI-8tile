@@ -1,6 +1,7 @@
 //#include <iostream>
 #include "EightTile.h"
 #include "HillClimb.h"
+#include "AStar.h"
 #include <conio.h>
 
 #include <iostream>
@@ -15,7 +16,8 @@ int main(void)
 	//simple program to exercise puzzle by moving blank around
 	//and drawing tiles
 	char d; //keyboard interface valid values a,s,w,d	
-	HillClimb ai;
+	HillClimb hill;
+	AStar aStar;
 
 	// print controls
 	cout << "controls\nwasd = move tiles\nh = activate hillclimbing, press any key to deactivate or wait for it to find a solution\nt = shuffle the puzzle\n";
@@ -28,7 +30,7 @@ int main(void)
 		if (d == 'd') myPuzzle.setMove(RIGHT);
 		if (d == 'w') myPuzzle.setMove(UP);
 		if (d == 's') myPuzzle.setMove(DOWN);
-		if (d == 'h') ai.solve();
+		if (d == 'h') hill.solve();
 		if (d == 't') myPuzzle.shuffle();
 		myPuzzle.swap(); //move blank
 		myPuzzle.display(); //draw puzzle
