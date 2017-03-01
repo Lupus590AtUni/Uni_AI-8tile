@@ -185,7 +185,7 @@ void EightTile::shuffle()
 	while (i < SHUFFLE_COUNT)
 	{
 		moveOK = false;
-		move randomMove = (move) (maths.dice(3)+1); // 3 as there are three options we want, +1 as the first is the one we don't want
+		move randomMove = (move) maths.dice(1,4);
 		switch (randomMove)
 		{
 		case move::DOWN:
