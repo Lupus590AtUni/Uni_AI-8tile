@@ -48,7 +48,8 @@ void HillClimb::solve()
 {
 	NA_Timer timer;
 	timer.setDuration(0.5); // in seconds
-	while (true)
+	bool solved = false;
+	while (!solved)
 	{
 		timer.restart();
 		cout << "press any key to interrupt\n";
@@ -62,6 +63,7 @@ void HillClimb::solve()
 		if (currentMissplacedCount == 0)
 		{
 			cout << "Solved\n";
+			solved = true;
 			break;
 		}
 
