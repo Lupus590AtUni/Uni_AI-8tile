@@ -202,7 +202,7 @@ void EightTile::shuffle()
 			break;
 		
 		default:
-			cout << "EightTile::shuffle - default used in switch"; // most of my defaults wait for imposibilities
+			cout << "EightTile::shuffle - default used in switch"; // most of my defaults waitForElapse for imposibilities
 			break;
 		}
 		if (moveOK)

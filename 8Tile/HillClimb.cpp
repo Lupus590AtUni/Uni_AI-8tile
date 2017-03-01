@@ -5,6 +5,7 @@
 #include <iostream>
 #include <conio.h>
 #include "NA_MathsLib.h"
+#include "NA_Timer.h"
 
 using std::cout;
 
@@ -45,8 +46,11 @@ int HillClimb::calcMissplaceCount(int** compare)//Used for tracking our progress
 
 void HillClimb::solve()
 {
+	NA_Timer timer;
+	timer.setDuration(0.5); // in seconds
 	while (true)
 	{
+		timer.restart();
 		cout << "press any key to interrupt\n";
 		if (_kbhit())
 		{
@@ -143,7 +147,7 @@ void HillClimb::solve()
 				break;
 
 			default:
-				cout << "HillClimb::solve Random move part when stuck - default used in switch"; // most of my defaults wait for imposibilities
+				cout << "HillClimb::solve Random move part when stuck - default used in switch"; // most of my defaults waitForElapse for imposibilities
 				break;
 			}
 			if (moveOK)
@@ -160,6 +164,7 @@ void HillClimb::solve()
 
 		myPuzzle.display();
 		cout << "AutoSolve Active\n";
+		timer.waitForElapse();
 		
 	}
 

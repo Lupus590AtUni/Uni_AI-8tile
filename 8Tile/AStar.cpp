@@ -1,6 +1,15 @@
 #include "AStar.h"
+#include "EightTile.h"
 
+#include <math.h>
+#include <iostream>
+#include <conio.h>
+#include "NA_MathsLib.h"
+#include "NA_Timer.h"
 
+using std::cout;
+
+extern EightTile myPuzzle;
 
 AStar::AStar()
 {
