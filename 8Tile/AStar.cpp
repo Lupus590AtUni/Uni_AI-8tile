@@ -47,6 +47,24 @@ void AStar::solve()
 {
 	// This reference gave me the general direction to go for making this function - https://www.cs.princeton.edu/courses/archive/spr10/cos226/assignments/8puzzle.html
 
+	NA_Timer timer;
+	timer.setDuration(0.5); // in seconds
+	bool solved = false;
+	while (!solved)
+	{
+		timer.restart();
 
+		cout << "press any key to interrupt\n";
+		if (_kbhit())
+		{
+			_getch(); //discard the key which was used to interrupt
+			break;
+		}
+
+
+
+		timer.waitForElapse();
+
+	}
 
 }
