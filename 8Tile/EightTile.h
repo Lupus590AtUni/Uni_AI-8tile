@@ -28,7 +28,7 @@ private:
 	int solution[3][3];//puzzle at start (solved).
 	int x;  //blank x position
 	int y;  //blank y position
-	const int SHUFFLE_COUNT = 1000;
+	const int SHUFFLE_COUNT = 12;
 
 };
 
