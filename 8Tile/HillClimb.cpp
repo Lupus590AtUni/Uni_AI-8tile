@@ -46,6 +46,7 @@ int HillClimb::calcMissplaceCount(int** compare)//Used for tracking our progress
 
 void HillClimb::solve()
 {
+	// TODO: don't allow undo moves - this will cause it to get stuck in a way that it will reconise
 	NA_Timer timer;
 	timer.setDuration(0.5); // in seconds
 	bool solved = false;

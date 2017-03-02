@@ -45,6 +45,8 @@ int AStar::calcMissplaceCount(int ** compare)
 
 void AStar::solve()
 {
+	// Change to genetic algorithm?
+
 	// This reference gave me the general direction to go for making this function - https://www.cs.princeton.edu/courses/archive/spr10/cos226/assignments/8puzzle.html
 
 	NA_Timer timer;
