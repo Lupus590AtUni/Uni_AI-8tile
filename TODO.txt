@@ -1,0 +1,5 @@
+track number of moves made
+auto solve should use method as in report
+
+
+a* or genetic algorithm
