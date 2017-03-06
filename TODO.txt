@@ -1,5 +1,7 @@
 track number of moves made
 auto solve should use method as in report
 
+Hill climb using manhattern dist
+
 
 a* or genetic algorithm
