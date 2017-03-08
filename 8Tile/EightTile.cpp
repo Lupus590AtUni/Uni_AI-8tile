@@ -120,6 +120,30 @@ bool EightTile::okDown(void)
 		return true; else return false;
 }
 
+bool EightTile::okMove(move m)
+{
+	switch (m)
+	{
+	case move::DOWN:
+		return okDown();
+		break;
+	case move::LEFT:
+		return okLeft();
+		break;
+	case move::UP:
+		return okUp();
+		break;
+	case move::RIGHT:
+		return okRight();
+		break;
+
+	default:
+		cout << "EightTile::okMove - default used in switch"; // most of my defaults wait for impossibilities
+		return false;
+		break;
+	}
+}
+
 int EightTile::getX()
 {
 	return x;

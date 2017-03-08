@@ -14,6 +14,8 @@ public:
 	bool okUp(void);//can I move up
 	bool okDown(void);//can I move down
 
+	bool okMove(move);
+
 	int getX();
 	int getY();
 	int getSolution(int i, int j);

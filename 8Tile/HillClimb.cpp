@@ -20,36 +20,45 @@ HillClimb::~HillClimb()
 {
 }
 
-int HillClimb::calcMissplaceCount(int** compare)//Used for tracking our progress
-{
-	int missplacedCount = 0;
-	for (int i = 0; i < 3; i++)
-	{
-		for (int j = 0; j < 3; j++)
-		{
-			if (compare[i][j] != myPuzzle.getSolution(i,j))
-			{
-				missplacedCount++;
-			}
-		}
-	}
 
-	for (int i = 0; i < 3; i++)
-	{
-		delete compare[i];
-	}
-	delete compare;
-
-	return missplacedCount;
-}
 
 
 void HillClimb::solve()
 {
-	// TODO: don't allow undo moves - this will cause it to get stuck in a way that it will reconise
+	
 	NA_Timer timer;
 	timer.setDuration(0.5); // in seconds
 	bool solved = false;
+
+	// http://www.cprogramming.com/tutorial/function-pointers.html
+	extern int (calcMissplaceCount) (int**);
+	extern int (calcTotalManhatternDist)(int**);
+	int(*heuristicFunction)(int**); 
+
+
+	
+	cout << "select heuristic function\nm = missplace count\nd = distance missplaced (manhattern distance)\n";
+	char choice = 'a';
+	while (!(choice == 'd' || choice == 'm'))
+	{
+		choice = _getch();
+	}
+
+	if (choice == 'd')
+	{
+		heuristicFunction = calcTotalManhatternDist;
+	}
+	else if(choice == 'm')
+	{
+		heuristicFunction = calcMissplaceCount;
+	}
+	else
+	{
+		cout << "HillClimb::solve - an impossible choice has been made when picking the heuristic function\n";
+		return;
+	}
+	
+
 	while (!solved)
 	{
 		timer.restart();
@@ -59,9 +68,9 @@ void HillClimb::solve()
 			_getch(); //discard the key which was used to interrupt
 			break;
 		}
-		int currentMissplacedCount = calcMissplaceCount();
-		//cout << "HillClimb::solve - currentMissplacedCount: " << currentMissplacedCount;
-		if (currentMissplacedCount == 0)
+		int heuristicValue = heuristicFunction(myPuzzle.getTilesCopy());
+		//cout << "HillClimb::solve - heuristicValue: " << heuristicValue;
+		if (heuristicValue == 0)
 		{
 			cout << "Solved\n";
 			solved = true;
@@ -69,63 +78,42 @@ void HillClimb::solve()
 		}
 
 		//only consider valid swaps
-		int missplaceCountIfMove = currentMissplacedCount;
-		move bestMove = NONE;
+		int heuristicValueIfMove = heuristicValue;
+		move bestMove = move::NONE;
 		int x = myPuzzle.getX();
 		int y = myPuzzle.getY();
-		if (myPuzzle.okDown())
+
+		for (int m = move::UP; m < move::RIGHT + 1; m++)
 		{
-			myPuzzle.setMove(DOWN);
-			myPuzzle.swap();
-			int result = calcMissplaceCount(myPuzzle.getTilesCopy());
-			if (result < currentMissplacedCount)//see if it's an improvment
+			cout << "m = " << m << "\n";
+			if (myPuzzle.okMove((move)m))
 			{
-				missplaceCountIfMove = result;
-				bestMove = DOWN;
+				myPuzzle.setMove((move)m);
+				myPuzzle.swap();
+				int result = heuristicFunction(myPuzzle.getTilesCopy());
+				if (result < heuristicValue)//see if it's an improvment
+				{
+					heuristicValueIfMove = result;
+					bestMove = (move)m;
+				}
+
+				int reverseMove;
+				//due to the way the enum is layed out we can do this 'trick'
+				if (m % 2 == 0) //if m is even
+				{
+					reverseMove = m - 1; //opposite move is the enum entry before m
+				}
+				else
+				{
+					reverseMove = m + 1; //opposite move is the enum entry after m
+				}
+				myPuzzle.setMove((move)reverseMove);
+				myPuzzle.swap();//swap back so we can find best move
 			}
-			myPuzzle.setMove(UP);
-			myPuzzle.swap();//swap back so we can find best move
 		}
-		if (myPuzzle.okUp())
-		{
-			myPuzzle.setMove(UP);
-			myPuzzle.swap();
-			int result = calcMissplaceCount(myPuzzle.getTilesCopy());
-			if (result < currentMissplacedCount)
-			{
-				missplaceCountIfMove = result;
-				bestMove = UP;
-			}
-			myPuzzle.setMove(DOWN);
-			myPuzzle.swap();
-		}
-		if (myPuzzle.okLeft())
-		{
-			myPuzzle.setMove(LEFT);
-			myPuzzle.swap();
-			int result = calcMissplaceCount(myPuzzle.getTilesCopy());
-			if (result < currentMissplacedCount)
-			{
-				missplaceCountIfMove = result;
-				bestMove = LEFT;
-			}
-			myPuzzle.setMove(RIGHT);
-			myPuzzle.swap();
-		}
-		if (myPuzzle.okRight())
-		{
-			myPuzzle.setMove(RIGHT);
-			myPuzzle.swap();
-			int result = calcMissplaceCount(myPuzzle.getTilesCopy());
-			if (result < currentMissplacedCount)
-			{
-				missplaceCountIfMove = result;
-				bestMove = RIGHT;
-			}
-			myPuzzle.setMove(LEFT);
-			myPuzzle.swap();
-		}
-		if (missplaceCountIfMove >= currentMissplacedCount)
+		
+
+		if (heuristicValueIfMove >= heuristicValue)
 		{
 			//stuck, maybe try a random move?
 			cout << "Stuck\n";
@@ -150,7 +138,7 @@ void HillClimb::solve()
 				break;
 
 			default:
-				cout << "HillClimb::solve Random move part when stuck - default used in switch"; // most of my defaults waitForElapse for imposibilities
+				cout << "HillClimb::solve Random move part when stuck - default used in switch"; // most of my defaults wait for impossibilities
 				break;
 			}
 			if (moveOK)
@@ -166,7 +154,7 @@ void HillClimb::solve()
 		myPuzzle.swap();
 
 		myPuzzle.display();
-		cout << "AutoSolve Active\n";
+		cout << "Hillclimb AutoSolve Active\n";
 		timer.waitForElapse();
 		
 	}

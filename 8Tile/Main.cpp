@@ -42,3 +42,69 @@ int main(void)
 	}
 	return 0;
 }//the end
+
+//heuristic functions
+
+int calcMissplaceCount(int** compare)
+{
+	int missplacedCount = 0;
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (compare[i][j] != myPuzzle.getSolution(i, j)) //if tile is not in it's proper location
+			{
+				missplacedCount++;
+			}
+		}
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		delete compare[i];
+	}
+	delete compare;
+
+	return missplacedCount;
+}
+
+int calcTotalManhatternDist(int** compare)
+{
+	int total = 0;
+
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (compare[i][j] != myPuzzle.getSolution(i, j)) //if tile is not in it's proper location
+			{
+				bool break_K_Loop = false; //breaking my variable naming convention in favour of readability
+				//Find out how far it is from it's proper position
+				for (int k = 0; k < 3; k++)
+				{
+					for (int l = 0; l < 3; l++)
+					{
+						if (compare[i][j] == myPuzzle.getSolution(k, l)) //found it's proper position
+						{
+							total += abs(i - k)+ abs(j-l);
+
+							//break loops somewhat nicely
+							break_K_Loop = true;
+							break; // break the l loop
+						}
+						if (break_K_Loop) break; //should never run, but just in case
+					}
+					if (break_K_Loop) break; // dist was found for this tile
+				}
+			}
+		}
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		delete compare[i];
+	}
+	delete compare;
+
+	return total;
+}

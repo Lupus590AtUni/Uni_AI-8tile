@@ -6,7 +6,6 @@ class HillClimb
 public:
 	HillClimb();
 	~HillClimb();
-	int calcMissplaceCount(int** compare = myPuzzle.getTilesCopy());
 	void solve();
 };
 
