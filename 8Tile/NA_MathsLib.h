@@ -21,7 +21,7 @@ public:
 	NA_MathsLib(void);
 	~NA_MathsLib(void);
 
-	//had to name dice as could not access randoms rand function if maths::rand was so named
+	//had to name dice as could not access randoms rand function if na_maths::rand was so named
 	int dice(int bottom, int top);
 	int dice(int top);
 

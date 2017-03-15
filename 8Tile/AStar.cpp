@@ -115,10 +115,10 @@ void AStar::solve()
 			//stuck, maybe try a random move?
 			cout << "Stuck\n";
 
-			extern NA_MathsLib maths;
+			extern NA_MathsLib na_maths;
 
 			bool moveOK = false;
-			move randomMove = (move)maths.dice(1, 4);
+			move randomMove = (move)na_maths.dice(1, 4);
 			switch (randomMove)
 			{
 			case move::DOWN:

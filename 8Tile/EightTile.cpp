@@ -201,15 +201,15 @@ void EightTile::shuffle()
 	}
 
 	// do the actual shuffle
-	extern NA_MathsLib maths;
+	extern NA_MathsLib na_maths;
 
-	maths.seedDice();
+	na_maths.seedDice();
 	int i = 0;
 	bool moveOK;
 	while (i < SHUFFLE_COUNT)
 	{
 		moveOK = false;
-		move randomMove = (move) maths.dice(1,4);
+		move randomMove = (move) na_maths.dice(1,4);
 		switch (randomMove)
 		{
 		case move::DOWN:

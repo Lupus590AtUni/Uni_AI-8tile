@@ -118,30 +118,10 @@ void HillClimb::solve()
 			//stuck, maybe try a random move?
 			cout << "Stuck\n";
 
-			extern NA_MathsLib maths;
+			extern NA_MathsLib na_maths;
 
-			bool moveOK = false;
-			move randomMove = (move)maths.dice(1,4);
-			switch (randomMove)
-			{
-			case move::DOWN:
-				moveOK = myPuzzle.okDown();
-				break;
-			case move::LEFT:
-				moveOK = myPuzzle.okLeft();
-				break;
-			case move::UP:
-				moveOK = myPuzzle.okUp();
-				break;
-			case move::RIGHT:
-				moveOK = myPuzzle.okRight();
-				break;
-
-			default:
-				cout << "HillClimb::solve Random move part when stuck - default used in switch"; // most of my defaults wait for impossibilities
-				break;
-			}
-			if (moveOK)
+			move randomMove = (move)na_maths.dice(1,4);
+			if (myPuzzle.okMove(randomMove))
 			{
 				myPuzzle.setMove(randomMove);
 				myPuzzle.swap();
