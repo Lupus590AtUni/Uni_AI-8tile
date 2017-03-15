@@ -1,5 +1,14 @@
+
 #include "NA_Timer.h"
 #include <time.h>
+#ifdef  _WIN32
+//https://msdn.microsoft.com/en-us/library/windows/desktop/ms737629(v=vs.85).aspx
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <Windows.h>
+#endif
+
 
 
 NA_Timer::NA_Timer(double d)
@@ -34,6 +43,8 @@ void NA_Timer::waitForElapse()
 {
 	while (!hasElapsed())
 	{
-		//should probably tell the os that we are waiting
+		#ifdef  _WIN32
+			Sleep(250*(duration - difftime(time(NULL), start))); //quarter of a second mulitplied by remianing duration (which is in seconds)
+		#endif
 	}
 }
