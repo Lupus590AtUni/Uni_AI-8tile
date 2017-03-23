@@ -55,6 +55,7 @@ void AStar::solve()
 		return;
 	}
 
+  //curently a copy of Hillclimb
 	while (!solved)
 	{
 		timer.restart();
