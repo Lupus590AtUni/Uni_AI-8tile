@@ -31,13 +31,15 @@ int main(void)
 		if (d == 'w') myPuzzle.setMove(UP);
 		if (d == 's') myPuzzle.setMove(DOWN);
 		if (d == 'h') hill.solve();
-		if (d == 'j') aStar.solve();
+		//if (d == 'j') aStar.solve();
 		if (d == 't') myPuzzle.shuffle();
 		myPuzzle.swap(); //move blank
 		myPuzzle.display(); //draw puzzle
 
 		// reprint controls
-		cout << "controls\nwasd = move tiles\nh = activate hillclimbing, press any key to deactivate or wait for it to find a solution\nt = shuffle the puzzle\n";
+		cout << "controls\nwasd = move tiles\n"
+			<<"h = activate hillclimbing, press any key to deactivate or wait for it to find a solution\n"<<
+			"t = shuffle the puzzle\n";
 		
 	}
 	return 0;
